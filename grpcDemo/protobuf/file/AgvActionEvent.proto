@@ -1,0 +1,96 @@
+syntax = "proto3";
+//生成文件所在包名
+option java_package = "com.cainiao.swarm.urcs.msg.bus.client.proto";
+//生成的java文件名
+option java_outer_classname = "AgvActionEventProto";
+//引入Message外层属性
+import "MessageBase.proto";
+
+message AgvActionEventMessage {
+    MessageBase messageBase = 1;
+
+    //agv下发命令
+    AgvActionEvent agvActionEvent = 2;
+
+    message AgvActionEvent {
+        //AGV编码
+        string agvId = 1;
+
+        //trace id
+        string traceId = 2;
+
+        //指令ID
+        string actionId = 3;
+
+        enum ActionTypeEnum {
+            // 移动指令
+            ACTION_MOVE = 0;
+
+            // 顶升货柜指令
+            ACTION_LIFT = 1;
+
+            //降下货柜指令
+            ACTION_PUT = 2;
+
+            // 读取货柜二维码
+            ACTION_READ = 3;
+
+            //带货柜旋转
+            ACTION_TURN = 4;
+
+            //不带货柜旋转
+            ACTION_ROTATE = 5;
+
+            // 充电
+            ACTION_CHARGE = 6;
+
+            //退出充电桩
+            ACTION_UNCHARGE = 7;
+
+            //清除本体错误
+            ACTION_CLEAR_ERROR = 8;
+
+            // 清除AGV本体指定的指令
+            ACTION_CLEAR = 9;
+
+            //清除AGV本体所有指令
+            ACTION_CLEAR_ALL = 10;
+
+            //变更AGV工作模式
+            ACTION_WORK_MODE = 11;
+
+            // 暂停AGV运动
+            ACTION_PAUSE = 12;
+
+            // 恢复AGV运动
+            ACTION_RESUME = 13;
+
+            // AGV倒车
+            ACTION_BACKWARD = 14;
+        }
+
+        // 指令类型
+        ActionTypeEnum actionType = 4;
+
+        enum ActionEventEnum {
+            // AGV已接收指令
+            ACTION_RECEIVED = 0;
+
+            // AGV拒绝指令
+            ACTION_REJECT = 1;
+
+            // AGV指令完成
+            ACTION_COMPLETED = 2;
+
+            // AGV执行指令错误
+            ACTION_ERROR = 3;
+        }
+
+        // 指令状态
+        ActionEventEnum actionEvent = 5;
+
+        // 附加信息
+        string actionMeta = 6;
+    }
+}
+

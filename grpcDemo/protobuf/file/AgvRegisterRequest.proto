@@ -1,0 +1,76 @@
+syntax = "proto3";
+//生成文件所在包名
+option java_package = "com.cainiao.swarm.urcs.msg.bus.client.proto";
+//生成的java文件名
+option java_outer_classname = "AgvRegisterRequestProto";
+//引入Message外层属性
+import "MessageBase.proto";
+
+message AgvRegisterRequestMessage {
+
+    MessageBase messageBase = 1;
+
+    //agv下发命令
+    AgvRegisterRequest agvRegisterRequest = 2;
+
+    message AgvRegisterRequest {
+        //AGV编码
+        string agvCode = 1;
+
+        // 电量，1 ： 满电量100%
+        float initPower = 2;
+
+        // 当前逻辑坐标X
+        int32 curX = 3;
+
+        //当前逻辑坐标X
+        int32 curY = 4;
+
+        //agv是否带货柜
+        bool withBucket = 5;
+
+        //货柜code
+        string bucketCode = 6;
+
+        ///货柜面
+        int32 topFace = 7;
+
+        // agv的IP
+        string ip = 8;
+
+        //agv的版本号
+        string buildNo = 9;
+
+        enum AgvRegisterTypeEnum {
+            //网络重连导致的重新注册
+            REGISTER_NETWORK = 0;
+
+            // 程序重启导致的重新注册
+            REGISTER_REBOOT = 1;
+
+            // 运维操作导致的重新注册
+            REGISTER_OPERATION = 2;
+        }
+
+        //注册类型
+        AgvRegisterTypeEnum typeEnum = 10;
+
+        enum AgvStateEnum {
+            // 该状态表示AGV空闲
+            IDLE = 0;
+
+            //该状态表示AGV忙绿
+            BUSY = 1;
+
+            // 该状态表示AGV出错
+            ERROR = 2;
+
+            // 该状态表示AGV在充电
+            CHARGING = 3;
+        }
+
+        //DSP状态类型
+        AgvStateEnum dspState = 11;
+    }
+}
+

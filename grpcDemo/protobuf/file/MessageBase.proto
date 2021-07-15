@@ -1,0 +1,68 @@
+syntax = "proto3";
+//生成文件所在包名
+option java_package = "com.cainiao.swarm.urcs.msg.bus.client.proto";
+//生成的java文件名
+option java_outer_classname = "MessageBaseProto";
+
+message MessageBase {
+
+    string id = 1;
+
+    enum MessageTypeEnum {
+        INIT = 0;
+        HEART_BEAT = 1;
+        DATA = 2;
+        DESTROY = 3;
+    }
+
+    MessageTypeEnum messageTypeEnum = 2;
+
+    message Model {
+        // 路由
+        string path = 1;
+
+        // 发送模式
+        ModeEnum modeEnum = 2;
+
+        // 消息类型
+        TypeEnum typeEnum = 3;
+
+        enum ModeEnum {
+            // 同步发送
+            SYNC = 0;
+            // 异步发送
+            ASYNC = 1;
+        }
+
+        enum TypeEnum {
+            // 请求类消息（RPC消息，客户端--->服务端）
+            REQUEST = 0;
+            //上报类消息（非RPC消息，客户端--->服务端）
+            REPORT = 1;
+            //推送类消息（RPC消息，服务端--->客户端）
+            PUSH = 2;
+            //通知类消息（非RPC消息，服务端--->客户端）
+            NOTIFY = 3;
+        }
+    }
+
+    // 模式
+    Model mapping = 3;
+
+    //消息超时时间
+    int64 respTimeoutMillis = 4;
+
+    //如果是回复包，该字段代表请求报文的消息ID
+    string collaborationId = 5;
+
+    //错误信息
+    string errorMsg = 6;
+
+    //发包时间
+    int64 netStartTm = 7;
+
+    //收包时间
+    int64 netEndTm = 8;
+
+}
+

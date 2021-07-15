@@ -1,0 +1,160 @@
+syntax = "proto3";
+//生成文件所在包名
+option java_package = "com.cainiao.swarm.urcs.msg.bus.client.proto";
+//生成的java文件名
+option java_outer_classname = "AgvRtStatusProto";
+//引入Message外层属性
+import "MessageBase.proto";
+
+
+message AgvRtStatusMessage {
+
+    MessageBase messageBase = 1;
+
+    //agv下发命令
+    AgvRtStatus agvRtStatus = 2;
+
+    message AgvRtStatus {
+
+        //AGV编码
+        string agvId = 1;
+
+        //AGV当前物理X坐标
+        double pixelX = 2;
+
+        //AGV当前物理Y坐标
+        double pixelY = 3;
+
+        //AGV当前物理Z坐标
+        double pixelZ = 4;
+
+        //AGV当前车头朝向, @see Direction
+        int32 directionId = 5;
+
+        //AGV当前速度
+        double speed = 6;
+
+        //AGV角速度
+        double speedW = 7;
+
+        // AGV当前电量
+        double power = 8;
+
+        // 顶升总次数
+        int64 liftUpTimes = 9;
+
+        // 行驶总里程
+        int64 mileage = 10;
+
+        // 是否顶升货柜
+        bool loadBucketFlag = 11;
+
+        // 货柜编码
+        string bucketCode = 12;
+
+        // 货柜朝向
+        string bucketFace = 13;
+
+        // 指令ID
+        string actionId = 14;
+
+        // 异常描述
+        string exceptionStr = 15;
+
+        // agv的版本号
+        string buildNo = 16;
+
+        // 上报的时间戳
+        int64 timestamp = 17;
+
+        // 车辆网络连接状态, @see NetworkStateEnum
+        string networkState = 18;
+
+        // 控制器状态 @see CommonTaskStatus
+        string controllerState = 19;
+
+        // 车辆运动状态  @see CommonTaskStatus
+        string driveUnitState = 20;
+
+        enum AgvStatusEnum {
+            //离线
+            OFFLINE = 0;
+            //单机模式
+            BASIC = 1;
+            //人工联网
+            ONLINE = 2;
+            //上线
+            REGISTERED = 3;
+        }
+
+        // 亦表示AGV在线状态、AGV工作模式
+        AgvStatusEnum basicStatus = 21;
+
+
+        // 保留补充字段
+        int32 reserve = 22;
+
+        enum AgvStateEnum {
+            //该状态表示AGV空闲
+            IDLE = 0;
+            //该状态表示AGV忙绿
+            BUSY = 1;
+            //该状态表示AGV出错
+            ERROR = 2;
+            //该状态表示AGV在充电
+            CHARGING = 3;
+        }
+
+        // AGV工作状态
+        AgvStateEnum agvState = 23;
+
+
+        // 温度级别 1-偏低 2-正常 3-偏高 4-危险
+        int32 tempLevel = 24;
+
+        // 表示AGV是否就绪，true表示就绪，false表示非法
+        bool isReady = 25;
+
+        // 表示AGV当前是否在二维码上，true表示在二维码上，false表示不在二维码上
+        bool cameraOnCodeFlag = 26;
+
+        // 障碍物距离，非0表示遇到障碍物了
+        int32 barrierDistance = 27;
+
+        // 障碍物角度
+        int32 barrierHeading = 28;
+
+        // 下位机错误代码
+        int32 errorNumber = 29;
+
+        // 总里程
+        int32 overallMileage = 30;
+
+        /**
+         * bit0~bit1  0--命令执行完成，1--命令执行中，2--接受到错误指令，3--指令因错误终止
+         */
+        int32 robotState = 31;
+
+        /**
+         *  运动状态	1
+         * 	//	#define AGV_MOTION_STOP 0
+         * 	//	#define AGV_MOTION_TURNING 1G
+         * 	//	#define AGV_MOTION_LIFTING 2
+         * 	//	#define AGV_MOTION_SET_DOWN 3
+         * 	//	#define AGV_MOTION_MOVING 4
+         * 	//	#define AGV_MOTION_PAUSE 5
+         * 	//	#define AGV_MOTION_MOVE_ARC_IN 6
+         * 	//	#define AGV_MOTION_MOVE_ARC_OUT 7
+         * 	//	#define AGV_MOTION_POD_ZERO 8
+         * 	//	#define AGV_MOTION_POD_LS 9
+         */
+        int32 opState = 32;
+
+        // 托盘高度	2	单位:毫米*100,(-600~7000)
+        int32 podHeight = 33;
+
+        // bit4~bit5  0-没带货架；1-带货架；2-不确定
+        int32 bucketState = 34;
+    }
+}
+

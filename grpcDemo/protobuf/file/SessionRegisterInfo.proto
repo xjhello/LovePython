@@ -1,0 +1,68 @@
+syntax = "proto3";
+//生成文件所在包名
+option java_package = "com.cainiao.swarm.urcs.msg.bus.client.proto";
+//生成的java文件名
+option java_outer_classname = "SessionRegisterInfoProto";
+//引入Message外层属性
+import "MessageBase.proto";
+
+message SessionRegisterInfoMessage {
+
+    MessageBase messageBase = 1;
+
+    //agv下发命令
+    SessionRegisterInfo sessionRegisterInfo = 2;
+
+
+    message SessionRegisterInfo {
+        // session名称
+        string sessionName = 1;
+
+        //session ID
+        string sessionId = 2;
+
+        //session对应的连接数
+        int32 sessionSize = 3;
+
+        enum HeartbeatStrategyEnum{
+
+            //客户端主动发送心跳
+            CLIENT_INITIATIVE=0;
+
+            // 服务端主动发送心跳
+            SERVER_INITIATIVE=1;
+        }
+
+        //心跳策略
+        HeartbeatStrategyEnum heartbeatStrategyEnum = 4;
+
+        // session空闲时间
+        int64 allIdleTime = 5;
+
+        // 时间单位
+        string idleTimeUnit = 6;
+
+        // session超时时间
+        int64 timeout = 7;
+
+        //连接名称
+        string connName = 8;
+
+        //连接id
+        string connId = 9;
+
+        //是否心跳连接
+        bool isHeartbeatConn = 10;
+
+        //路径匹配器
+        string pathMatcher = 11;
+
+        // 是否默认连接
+        bool defaultConn = 12;
+
+        // 用户ID
+        string userId = 13;
+
+    }
+}
+

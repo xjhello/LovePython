@@ -1,0 +1,32 @@
+syntax = "proto3";
+//生成文件所在包名
+option java_package = "com.cainiao.swarm.urcs.msg.bus.client.proto";
+//生成的java文件名
+option java_outer_classname = "AgvUnRegisterRequestProto";
+//引入Message外层属性
+import "MessageBase.proto";
+
+message AgvUnRegisterRequestMessage {
+
+    MessageBase messageBase = 1;
+
+    AgvUnRegisterRequest agvUnRegisterRequest = 2;
+
+    message AgvUnRegisterRequest {
+        // agv code
+        string agvCode = 1;
+
+        //AGV解除注册的类型
+        AgvUnRegisterTypeEnum unRegisterTypeEnum = 2;
+
+        enum AgvUnRegisterTypeEnum {
+
+            UNREGISTER_BASIC_TYPE = 0;
+            UNREGISTER_ONLINE_TYPE = 1;
+        }
+
+        // 选填字段
+        string message = 3;
+    }
+}
+

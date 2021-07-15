@@ -1,0 +1,23 @@
+syntax = "proto3";
+// 成 件所在包名
+option java_package = "com.cainiao.swarm.urcs.msg.bus.client.proto"; // 成的java 件名
+option java_outer_classname = "AgvRegisterResponseProto"; //引 Message外层属性
+import "MessageBase.proto";
+message AgvRegisterResponseMessage {
+    MessageBase messageBase = 1;
+    //agv下发命令
+    AgvRegisterResponse agvRegisterResponse = 2;
+    message AgvRegisterResponse {
+        //AGV编码
+        string agvCode = 1;
+        //agv注册结果: true:表示正常注册成功，false:表示出错
+        bool result = 2;
+        //服务 端错误码
+        string code = 3; //agv注册上线需要的相关配置 string meta = 4;
+        //AGV当前物 X坐标 (mm)
+        double pixelX = 5;
+        //AGV当前物 Y坐标 (mm)
+        double pixelY = 6;
+    }
+}
+

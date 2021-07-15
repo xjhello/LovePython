@@ -1,0 +1,126 @@
+syntax = "proto3";
+//生成文件所在包名
+option java_package = "com.cainiao.swarm.urcs.msg.bus.client.proto";
+//生成的java文件名
+option java_outer_classname = "AgvActionProto";
+//引入Message外层属性
+import "MessageBase.proto";
+
+message AgvActionMessage {
+    MessageBase messageBase = 1;
+
+    //agv下发命令
+    AgvAction agvAction = 2;
+
+    message AgvAction {
+        // AGV编码
+        string agvId = 1;
+
+        //trace id
+        string traceId = 2;
+
+        //发送给AGV的指令ID
+        string actionId = 3;
+
+        enum ActionTypeEnum {
+            //移动指令
+            ACTION_MOVE = 0;
+
+            //顶升货柜指令
+            ACTION_LIFT = 1;
+
+            //降下货柜指令
+            ACTION_PUT = 2;
+
+            //读取货柜二维码
+            ACTION_READ = 3;
+
+            //带货柜旋转
+            ACTION_TURN = 4;
+
+            //不带货柜旋转
+            ACTION_ROTATE = 5;
+
+            //充电
+            ACTION_CHARGE = 6;
+
+            //退出充电桩
+            ACTION_UNCHARGE = 7;
+
+            //清除本体错误
+            ACTION_CLEAR_ERROR = 8;
+
+            //清除AGV本体指定的指令
+            ACTION_CLEAR = 9;
+
+            //清除AGV本体所有指令
+            ACTION_CLEAR_ALL = 10;
+
+            //变更AGV工作模式
+            ACTION_WORK_MODE = 11;
+
+            //暂停AGV运动
+            ACTION_PAUSE = 12;
+
+            //恢复AGV运动
+            ACTION_RESUME = 13;
+
+            //AGV倒车
+            ACTION_BACKWARD = 14;
+        }
+
+        //发送给AGV的指令类型
+        ActionTypeEnum actionType = 4;
+
+
+        message ActionPoint {
+
+            int32 id = 1;
+
+            double originX = 2;
+
+            double originY = 3;
+
+            //充电桩距离
+            double distance = 4;
+
+            //充电桩方向
+            double direction = 5;
+        }
+        //当前AGV所在点位
+        ActionPoint currentPoint = 5;
+
+        //推送给AGV的点序列
+        repeated ActionPoint points = 6;
+
+        //需要顶升的货柜编码
+        string bucketCode = 7;
+
+        //货柜朝向
+        string bucketFace = 8;
+
+        //车到达points列表最后一个点后的车头朝向
+        int32 directionId = 9;
+
+        //跟车标志,true表示这条移动指令需要跟车,false表示这条移动指令表示跟车指令
+        bool followFlag = 10;
+
+        enum AgvStatusEnum {
+            //离线
+            OFFLINE = 0;
+            //单机模式
+            BASIC = 1;
+            //人工联网
+            ONLINE = 2;
+            //上线
+            REGISTERED = 3;
+        }
+
+        //AGV工作模式
+        AgvStatusEnum workMode = 11;
+
+        //该指令重试次数
+        int32 retryTimes = 12;
+    }
+}
+

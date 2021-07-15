@@ -1,0 +1,28 @@
+syntax = "proto3";
+//生成文件所在包名
+option java_package = "com.cainiao.swarm.urcs.msg.bus.client.proto";
+//生成的java文件名
+option java_outer_classname = "AgvGetOriginPointResponseProto";
+//引入Message外层属性
+import "MessageBase.proto";
+
+message AgvGetOriginPointResponseMessage {
+
+    MessageBase messageBase = 1;
+
+    //agv下发命令
+    AgvGetOriginPointResponse agvGetOriginPointResponse = 2;
+
+
+    message AgvGetOriginPointResponse {
+
+        int32 logicalX = 1;
+
+        int32 logicalY = 2;
+
+        int64 originX = 3;
+
+        int64 originY = 4;
+    }
+}
+

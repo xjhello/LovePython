@@ -1,0 +1,33 @@
+syntax = "proto3";
+//生成文件所在包名
+option java_package = "com.cainiao.swarm.urcs.msg.bus.client.proto";
+//生成的java文件名
+option java_outer_classname = "SessionDestroyInfoProto";
+//引入Message外层属性
+import "MessageBase.proto";
+
+message SessionDestroyInfoMessage {
+
+    MessageBase messageBase = 1;
+
+    //agv下发命令
+    SessionDestroyInfo sessionDestroyInfo = 2;
+
+    message SessionDestroyInfo {
+        // session名称
+        string sessionName = 1;
+
+        //session ID
+        string sessionId = 2;
+
+        // 连接名称
+        string connName = 3;
+
+        // 连接ID
+        string connId = 4;
+
+        // 用户ID
+        string userId = 5;
+    }
+}
+
