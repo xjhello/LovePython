@@ -14,5 +14,6 @@ def callback(ch, method, properties, body):
 
 # 告诉rabbitmq，用callback来接收消息
 channel.basic_consume('python-test',callback)
+
 # 开始接收信息，并进入阻塞状态，队列里有信息才会调用callback进行处理
 channel.start_consuming()

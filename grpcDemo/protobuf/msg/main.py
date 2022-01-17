@@ -16,6 +16,7 @@ from grpcDemo.protobuf.msg.MessageBase_pb2 import MessageBase
 # 序列化
 # 生成动作对象
 agv_obj = AgvAction_pb2.AgvActionMessage()
+
 agv_obj.agvAction.agvId = "agvid"
 # 注意  枚举类型  第一个值为默认的值， 默认值不显示....
 # agv_obj.messageBase.messageTypeEnum = 1
