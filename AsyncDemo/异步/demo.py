@@ -31,7 +31,7 @@ print(">>>>>调用next")
 print('next的返回值:', next(coro))
 print("----" * 20)
 print('next的返回值:', next(coro))
-# print('next的返回值:', next(coro))
+print('next的返回值:', next(coro))
 # print('next的返回值:', next(coro))
 # send时接收值的是yield左边的值a
 # print(">>>>>调用send")
