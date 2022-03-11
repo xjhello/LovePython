@@ -13,5 +13,3 @@ aa = a()
 print(next(aa)  )
 print(next(aa)  )
 # next(aa)
-
-
