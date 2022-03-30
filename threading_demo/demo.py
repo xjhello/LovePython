@@ -22,10 +22,15 @@ def b():
         time.sleep(1)
         print("b:{}".format(c))
 
-ta = threading.Thread(target=a)
-tb = threading.Thread(target=b)
-ta.start()
-tb.start()
-# ta.join()
-# tb.join()
-print(1111)
+# ta = threading.Thread(target=a)
+# tb = threading.Thread(target=b)
+# ta.start()
+# tb.start()
+# # ta.join()
+# # tb.join()
+# print(1111)
+aa = [1,2,1,21,2,1]
+
+bb = [i for i in aa]
+print(bb)
+print(all(bb))
