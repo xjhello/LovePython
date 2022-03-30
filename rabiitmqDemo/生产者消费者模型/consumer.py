@@ -15,7 +15,7 @@ def callback(ch, method, properties, body):
     ch.basic_ack(delivery_tag=method.delivery_tag)
     print(body.decode())
 
-
+channel.basic_qos()
 # 告诉rabbitmq，用callback来接收消息
 channel.basic_consume('python-test', callback)
 
