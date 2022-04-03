@@ -2,13 +2,11 @@
 # -*- coding: utf-8 -*-
 import pika
 
-# credentials = pika.PlainCredentials('admin', 'admin')
-# connection = pika.BlockingConnection(
-#     pika.ConnectionParameters(host='172.31.236.43', port=5672, virtual_host='/', credentials=credentials))
-# channel = connection.channel()
-from rabiitmqDemo.GetConnect import get_connect
+credentials = pika.PlainCredentials('admin', 'admin')
+connection = pika.BlockingConnection(
+    pika.ConnectionParameters(host='172.31.236.43', port=5672, virtual_host='/', credentials=credentials))
+channel = connection.channel()
 
-channel = get_connect()
 # 申明消息队列，消息在这个队列传递，如果不存在，则创建队列
 channel.queue_declare(queue='simple-test', durable=False)
 

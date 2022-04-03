@@ -7,17 +7,19 @@ from rabiitmqDemo.GetConnect import get_connect
 
 
 """
-根据消费者的消费能力进行公平分发，处理快的处理的多，处理慢的处理的少；按劳分配；
+Direct模式是fanout模式上的一种叠加，增加了路由RoutingKey的模式
 """
 
 channel = get_connect()
+# 与routing区别是交换机的类型为 topic
+channel.exchange_declare(exchange='routing-topic', exchange_type='topic')
 
-channel.queue_declare(queue="worker-fair", durable=True)
+severity = "routing Test"
 i = 0
 while True:
     message = json.dumps({'OrderId': "1000%s" % i})
     # 向队列插入数值 routing_key是队列名
-    channel.basic_publish(exchange='', routing_key='worker-fair', body=message)
+    channel.basic_publish(exchange='routing-topic', routing_key=severity, body=message)
     print(message)
     time.sleep(1)
     i += 1

@@ -7,7 +7,7 @@ from rabiitmqDemo.GetConnect import get_connect
 
 channel = get_connect()
 
-channel.queue_declare(queue="worker-fair")
+channel.queue_declare(queue="worker-fair", durable=True)
 
 def callback(ch, method, properties, body):
     print("c1接受body:{}".format(body.decode()))
@@ -16,7 +16,7 @@ def callback(ch, method, properties, body):
 
 
 
-# 公平分发
+# 公平分发 如果该消费者的channel上未确认的消息数达到了prefetch_count数，则不向该消费者发送消息
 channel.basic_qos(prefetch_count=1)
 channel.basic_consume(queue='worker-fair', on_message_callback=callback)
 

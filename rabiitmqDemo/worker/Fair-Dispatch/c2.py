@@ -7,7 +7,7 @@ from rabiitmqDemo.GetConnect import get_connect
 
 channel = get_connect()
 
-channel.queue_declare(queue="worker-fair")
+channel.queue_declare(queue="worker-fair", durable=True)
 
 def callback(ch, method, properties, body):
     print("c2接受body:{}".format(body.decode()))
@@ -16,7 +16,8 @@ def callback(ch, method, properties, body):
     # print(body.decode())
 
 
-# 公平分发
+# 公平分发 根据消费者的消费能力进行公平分发，处理快的处理的多，处理慢的处理的少；按劳分配
+# 与work的轮询不同的地方在于 basic_qos 设置了此条语句 轮询是每个消费者都会有的
 channel.basic_qos(prefetch_count=1)
 channel.basic_consume(queue='worker-fair', on_message_callback=callback)
 

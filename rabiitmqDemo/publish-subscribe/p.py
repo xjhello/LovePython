@@ -11,13 +11,15 @@ from rabiitmqDemo.GetConnect import get_connect
 """
 
 channel = get_connect()
+# 与简单模式的区别是知道了交换机和交换机的类型为 fanout
+channel.exchange_declare(exchange='pu-su', exchange_type='fanout')
 
-channel.queue_declare(queue="worker-fair", durable=True)
+
 i = 0
 while True:
     message = json.dumps({'OrderId': "1000%s" % i})
     # 向队列插入数值 routing_key是队列名
-    channel.basic_publish(exchange='', routing_key='worker-fair', body=message)
+    channel.basic_publish(exchange='pu-su', routing_key='', body=message)
     print(message)
     time.sleep(1)
     i += 1

@@ -12,12 +12,12 @@ from rabiitmqDemo.GetConnect import get_connect
 
 channel = get_connect()
 
-channel.queue_declare(queue="worker-fair")
+channel.queue_declare(queue="worker-round")
 i = 0
 while True:
     message = json.dumps({'OrderId': "1000%s" % i})
     # 向队列插入数值 routing_key是队列名
-    channel.basic_publish(exchange='', routing_key='worker-fair', body=message)
+    channel.basic_publish(exchange='', routing_key='worker-round', body=message)
     print(message)
     time.sleep(1)
     i += 1

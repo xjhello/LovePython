@@ -1,25 +1,25 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#!/usr/bin/env python
-import pika
-import sys
+import json
+import time
 
-# connection = pika.BlockingConnection(
-#     pika.ConnectionParameters(host='localhost'))
-# channel = connection.channel()
-credentials = pika.PlainCredentials('admin', 'admin')
-connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host='172.31.236.43', port=5672, virtual_host='/', credentials=credentials))
-channel = connection.channel()
-channel.queue_declare(queue='task_queue', durable=True)
+from rabiitmqDemo.GetConnect import get_connect
 
-channel.exchange_declare(exchange='direct_logs', exchange_type='direct')
 
-severity = sys.argv[1] if len(sys.argv) > 1 else 'info'
-message = ' '.join(sys.argv[2:]) or 'Hello World!'
+"""
+Direct模式是fanout模式上的一种叠加，增加了路由RoutingKey的模式
+"""
 
-channel.basic_publish(
-    exchange='direct_logs', routing_key=severity, body=message)
-print(" [x] Sent %r:%r" % (severity, message))
+channel = get_connect()
+# 与订阅发布的区别是交换机的类型为 direct  绑定了路由key
+channel.exchange_declare(exchange='routing-test', exchange_type='direct')
 
-connection.close()
+severity = "routing Test"
+i = 0
+while True:
+    message = json.dumps({'OrderId': "1000%s" % i})
+    # 向队列插入数值 routing_key是队列名
+    channel.basic_publish(exchange='routing-test', routing_key=severity, body=message)
+    print(message)
+    time.sleep(1)
+    i += 1
