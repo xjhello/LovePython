@@ -15,8 +15,8 @@ queue_name = result.method.queue
 print("创建的queue名称：{}".format(queue_name))
 # 绑定到交换机上
 
-severity = "routing*"
-channel.queue_bind(exchange='routing-topic', queue=queue_name, routing_key=severity)
+binding_key = "come.#"
+channel.queue_bind(exchange='routing-topic', queue=queue_name, routing_key=binding_key)
 
 
 def callback(ch, method, properties, body):
@@ -26,6 +26,5 @@ def callback(ch, method, properties, body):
 
 
 channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
-
 # 开始接收信息，并进入阻塞状态，队列里有信息才会调用callback进行处理
 channel.start_consuming()
