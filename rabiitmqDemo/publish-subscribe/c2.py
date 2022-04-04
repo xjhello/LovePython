@@ -22,7 +22,7 @@ def callback(ch, method, properties, body):
     # time.sleep(1)
     # ch.basic_ack(delivery_tag=method.delivery_tag)
 
-
+# 自动应答开启 会存在消息丢失的情况
 channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
 
 # 开始接收信息，并进入阻塞状态，队列里有信息才会调用callback进行处理

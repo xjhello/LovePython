@@ -1,17 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import pika
-# 无密码
-# connection = pika.BlockingConnection(pika.ConnectionParameters('127.0.0.1'))
+import json
+import time
 
-# 有密码
-credentials = pika.PlainCredentials("admin","admin")
-connection = pika.BlockingConnection(pika.ConnectionParameters('172.31.236.43',credentials=credentials))
-channel = connection.channel()
-# 声明一个队列(创建一个队列)
-channel.queue_declare(queue='lqz')
+from rabiitmqDemo.GetConnect import get_connect
 
-channel.basic_publish(exchange='',
-                      routing_key='lqz', # 消息队列名称
-                      body='hello world')
-connection.close()
+
+"""
+根据消费者的消费能力进行公平分发，处理快的处理的多，处理慢的处理的少；按劳分配；
+"""
+
+channel = get_connect()
+
+channel.queue_declare(queue="ack")
+i = 0
+while True:
+    message = json.dumps({'OrderId': "1000%s" % i})
+    # 向队列插入数值 routing_key是队列名
+    channel.basic_publish(exchange='', routing_key='ack', body=message)
+    print(message)
+    time.sleep(2)
+    i += 1

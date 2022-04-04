@@ -7,11 +7,12 @@ from rabiitmqDemo.GetConnect import get_connect
 
 channel = get_connect()
 
-channel.queue_declare(queue="worker-round")
+channel.queue_declare(queue="worker-round", durable=True)
 
 def callback(ch, method, properties, body):
     print("c2轮询接受body:{}".format(body.decode()))
     time.sleep(6)
+    exit(1)
     ch.basic_ack(delivery_tag=method.delivery_tag)
     # print(body.decode())
 
