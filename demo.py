@@ -64,6 +64,13 @@ def calculate_stop_point(point_list, robot_x, robot_y):
 #           pass
 #     print( 'Second_large_num is:', two)
 #
-a = [[2, 1], [4,1], [4,-1.1], [1, -2.2]]
-calculate_stop_point(a,0,0)
+# a = [[2, 1], [4,1], [4,-1.1], [1, -2.2]]
+# calculate_stop_point(a,0,0)
 # find_Second_large_num([32,343,4,56,123])
+
+import threading
+def v():
+    pass
+t_name = threading.Thread(target=v, name="uusadas")
+print(t_name)
+t_name.start()
